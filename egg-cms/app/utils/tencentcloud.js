@@ -5,10 +5,8 @@ const models = tencentcloud.faceid.v20180301.Models;
 const Credential = tencentcloud.common.Credential;
 const ClientProfile = tencentcloud.common.ClientProfile;
 const HttpProfile = tencentcloud.common.HttpProfile;
-let cred = new Credential(
-  "IKIDzwlLj05yeXIuKaeXEi2DF4eDk8bwFVhk",
-  "wqbAbs07A2lIf1FGrVyGRRFtOflekkaE"
-);
+let cred = new Credential("asdasd", "123123");
+// 这里是秘钥自己去注册
 let clientProfile = new ClientProfile("HmacSHA256", new HttpProfile());
 let client = new FaceidClient(cred, "ap-singapore", clientProfile);
 
