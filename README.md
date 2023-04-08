@@ -6,7 +6,7 @@
 
  + 自己改配置文件 后端启动 npm run dev
 
-   ![image-20230408173710941](C:\Users\赤子\AppData\Roaming\Typora\typora-user-images\image-20230408173710941.png)
+   ![image-20230408173710941](https://i.hd-r.cn/7b9284f96991505ea9bf3ba43a47fa9f.png)
 
 + biz_usr 是客户端用户表
 
@@ -19,4 +19,4 @@
 ## swagger-doc
 
 + swagger目前就写了两大块  配置swagger太麻烦了，反正都基本上是cv罢了
-+ ![image-20230408174334594](C:\Users\赤子\AppData\Roaming\Typora\typora-user-images\image-20230408174334594.png)
++ ![image-20230408174334594](https://i.hd-r.cn/e36137b70486de84449a4560c36dcde6.png)
