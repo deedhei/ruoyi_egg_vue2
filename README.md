@@ -16,6 +16,7 @@
 
 + 前端启动npm run serve
 + 演示地址：http://8.130.97.97/cms/
++ 账号密码：admin/123456
 
 ## swagger-doc
 
