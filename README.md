@@ -15,8 +15,10 @@
 ## 前端：文件夹vue-cms
 
 + 前端启动npm run serve
++ 演示地址：http://8.130.97.97/cms/
 
 ## swagger-doc
 
 + swagger目前就写了两大块  配置swagger太麻烦了，反正都基本上是cv罢了
++ 演示地址：http://8.130.97.97:7001/swagger-ui.html
 + ![image-20230408174334594](https://i.hd-r.cn/e36137b70486de84449a4560c36dcde6.png)

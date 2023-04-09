@@ -10,7 +10,7 @@ function resolve(dir) {
 }
 
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
+  publicPath: "./",
   lintOnSave: false,
   // 打包时不生成.map文件
   productionSourceMap: false,
@@ -79,18 +79,17 @@ module.exports = {
   },
   devServer: {
     // https: true,
-    host: "0.0.0.0",
     port: 9528,
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
-        target: "http://127.0.0.1:7001",
+        target: "http://localhost:7001/api/v1",
         changeOrigin: true,
         pathRewrite: {
           ["^" + process.env.VUE_APP_BASE_API]: "/api/v1"
         }
       },
       "/img_url": {
-        target: "http://127.0.0.1:7001",
+        target: "http://localhost:7001",
         changeOrigin: true,
         pathRewrite: {
           "^/img_url": ""

@@ -1,6 +1,11 @@
 <template>
   <div class="app-container">
-    <el-form ref="queryForm" :model="queryParams" :inline="true" label-width="68px">
+    <el-form
+      ref="queryForm"
+      :model="queryParams"
+      :inline="true"
+      label-width="68px"
+    >
       <el-form-item label="标题" prop="title">
         <el-input
           v-model="queryParams.title"
@@ -11,7 +16,13 @@
         />
       </el-form-item>
       <el-form-item label="类型" prop="status">
-        <el-select v-model="queryParams.type" placeholder="类型" clearable size="small" @change="handleQuery">
+        <el-select
+          v-model="queryParams.type"
+          placeholder="类型"
+          clearable
+          size="small"
+          @change="handleQuery"
+        >
           <el-option
             v-for="item in typeList"
             :key="item.id"
@@ -21,8 +32,16 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
+          >搜索</el-button
+        >
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
+          >重置</el-button
+        >
       </el-form-item>
     </el-form>
     <el-row :gutter="10">
@@ -33,7 +52,8 @@
           size="mini"
           @click="handleAdd"
           v-has-permi="['blog:article:add']"
-        >新增</el-button>
+          >新增</el-button
+        >
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -43,7 +63,8 @@
           :disabled="single"
           @click="handleUpdate"
           v-has-permi="['blog:article:update']"
-        >修改</el-button>
+          >修改</el-button
+        >
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -53,14 +74,16 @@
           :disabled="multiple"
           @click="handleDelete"
           v-has-permi="['blog:article:delete']"
-        >删除</el-button>
+          >删除</el-button
+        >
       </el-col>
     </el-row>
 
-<!--    <div>-->
-<!--      博客模仿地址： https://www.zfsphp.com/-->
-<!--    </div>-->
-    <el-table v-loading="$store.state.app.loading" :data="dataList" @selection-change="handleSelectionChange">
+    <el-table
+      v-loading="$store.state.app.loading"
+      :data="dataList"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column
         label="标题"
@@ -74,11 +97,33 @@
         prop="subTitle"
         :show-overflow-tooltip="true"
       />
-      <el-table-column label="类型" align="center" :formatter="typeFormatter" prop="type" />
+      <el-table-column
+        label="类型"
+        align="center"
+        :formatter="typeFormatter"
+        prop="type"
+      />
       <el-table-column label="热度" align="center" prop="hot" width="100" />
-      <el-table-column label="创建者" align="center" prop="createdBy" width="100" />
-      <el-table-column label="创建时间" align="center" prop="createdAt" :formatter="dateFormatter" width="200"> </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="200">
+      <el-table-column
+        label="创建者"
+        align="center"
+        prop="createdBy"
+        width="100"
+      />
+      <el-table-column
+        label="创建时间"
+        align="center"
+        prop="createdAt"
+        :formatter="dateFormatter"
+        width="200"
+      >
+      </el-table-column>
+      <el-table-column
+        label="操作"
+        align="center"
+        class-name="small-padding fixed-width"
+        width="200"
+      >
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -86,7 +131,8 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-has-permi="['blog:article:update']"
-          >修改</el-button>
+            >修改</el-button
+          >
           <el-button
             class="delete"
             size="mini"
@@ -94,13 +140,14 @@
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-has-permi="['blog:article:delete']"
-          >删除</el-button>
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
 
     <pagination
-      v-show="total>0"
+      v-show="total > 0"
       :total="total"
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
@@ -113,7 +160,8 @@
       :visible.sync="open"
       :append-to-body="true"
       :before-close="cancel"
-      direction="rtl">
+      direction="rtl"
+    >
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="24">
@@ -145,9 +193,10 @@
                 style="height: 600px;"
                 v-model="form.content"
                 ref="md"
-                :imageFilter = "uploadBefore"
+                :imageFilter="uploadBefore"
                 @imgAdd="handleEditorImgAdd"
-                @imgDel="handleEditorImgDel" />
+                @imgDel="handleEditorImgDel"
+              />
             </el-form-item>
           </el-col>
         </el-row>
@@ -161,13 +210,19 @@
 </template>
 
 <script>
-import { getArticle, getArticleById, addArticle, updateArticle, delArticle } from '@/api/admin/blog/article'
-import { getAllType } from '@/api/admin/blog/articleType'
-import { uploadAvatar } from '@/api/admin/base'
-import { baseImgUrl } from '@/utils/config'
+import {
+  getArticle,
+  getArticleById,
+  addArticle,
+  updateArticle,
+  delArticle
+} from "@/api/admin/blog/article";
+import { getAllType } from "@/api/admin/blog/articleType";
+import { uploadAvatar } from "@/api/admin/base";
+import { baseImgUrl } from "@/utils/config";
 
 export default {
-  data () {
+  data() {
     return {
       // 选中数组
       ids: [],
@@ -180,7 +235,7 @@ export default {
       // 公告表格数据
       dataList: [],
       // 弹出层标题
-      title: '',
+      title: "",
       // 是否显示弹出层
       open: false,
       typeList: [],
@@ -231,163 +286,162 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        title: [
-          { required: true, message: '标题不能为空', trigger: 'blur' }
-        ],
+        title: [{ required: true, message: "标题不能为空", trigger: "blur" }],
         subTitle: [
-          { required: true, message: '副标题不能为空', trigger: 'blur' }
+          { required: true, message: "副标题不能为空", trigger: "blur" }
         ],
-        type: [
-          { required: true, message: '请选择类型', trigger: 'blur' }
-        ]
+        type: [{ required: true, message: "请选择类型", trigger: "blur" }]
       }
-    }
+    };
   },
-  mounted () {
-    this.init()
+  mounted() {
+    this.init();
   },
   methods: {
-    typeFormatter (row, column) {
-      let str = ''
+    typeFormatter(row, column) {
+      let str = "";
       this.typeList.forEach(item => {
         if (item.key === row.type) {
-          str = item.title
+          str = item.title;
         }
-      })
-      return str
+      });
+      return str;
     },
-    uploadBefore (f) {
-      if (f.size > (1024 * 1024 * 0.5)) {
-        this.$httpResponse('图片不能大于500K', 'warning')
-        return false
+    uploadBefore(f) {
+      if (f.size > 1024 * 1024 * 0.5) {
+        this.$httpResponse("图片不能大于500K", "warning");
+        return false;
       } else {
-        return true
+        return true;
       }
     },
-    handleEditorImgAdd (pos, file) {
-      this.imgFile[pos] = file
-      const formData = new FormData()
-      formData.append('file', file)
+    handleEditorImgAdd(pos, file) {
+      this.imgFile[pos] = file;
+      const formData = new FormData();
+      formData.append("file", file);
       uploadAvatar(formData).then(res => {
-        this.$httpResponse(res.message)
-        console.log(baseImgUrl + res.data.path)
+        this.$httpResponse(res.message);
+        console.log(baseImgUrl + res.data.path);
         if (res.code === 0) {
-          this.$refs.md.$imglst2Url([[pos, baseImgUrl + res.data.path]])
+          this.$refs.md.$imglst2Url([[pos, baseImgUrl + res.data.path]]);
         } else {
-          this.$httpResponse('上传失败', 'error')
+          this.$httpResponse("上传失败", "error");
         }
-      })
+      });
     },
-    handleEditorImgDel (pos) {
-      delete this.imgFile[pos]
+    handleEditorImgDel(pos) {
+      delete this.imgFile[pos];
     },
-    init () {
-      this.getType()
-      this.getList()
+    init() {
+      this.getType();
+      this.getList();
     },
-    getType () {
+    getType() {
       getAllType().then(res => {
-        this.typeList = res.data.rows
-      })
+        this.typeList = res.data.rows;
+      });
     },
     /** 查询列表 */
-    getList () {
+    getList() {
       getArticle(this.queryParams).then(res => {
-        this.dataList = res.data.rows
-        this.total = res.data.count
-      })
+        this.dataList = res.data.rows;
+        this.total = res.data.count;
+      });
     },
     // 取消按钮
-    cancel () {
-      this.open = false
-      this.reset()
+    cancel() {
+      this.open = false;
+      this.reset();
     },
     // 表单重置
-    reset () {
+    reset() {
       this.form = {
         id: undefined,
         title: undefined,
         subTitle: undefined,
         content: undefined,
         type: undefined
-      }
-      this.resetForm('form')
+      };
+      this.resetForm("form");
     },
     /** 搜索按钮操作 */
-    handleQuery () {
-      this.queryParams.pageNum = 1
-      this.getList()
+    handleQuery() {
+      this.queryParams.pageNum = 1;
+      this.getList();
     },
     /** 重置按钮操作 */
-    resetQuery () {
-      this.resetForm('queryForm')
-      this.handleQuery()
+    resetQuery() {
+      this.resetForm("queryForm");
+      this.handleQuery();
     },
     // 多选框选中数据
-    handleSelectionChange (selection) {
-      this.ids = selection.map(item => item.id)
-      this.single = selection.length !== 1
-      this.multiple = !selection.length
+    handleSelectionChange(selection) {
+      this.ids = selection.map(item => item.id);
+      this.single = selection.length !== 1;
+      this.multiple = !selection.length;
     },
     /** 新增按钮操作 */
-    handleAdd () {
-      this.reset()
-      this.open = true
-      this.title = '添加文章'
+    handleAdd() {
+      this.reset();
+      this.open = true;
+      this.title = "添加文章";
     },
     /** 修改按钮操作 */
-    handleUpdate (row) {
-      this.reset()
-      const id = row.id || this.ids
+    handleUpdate(row) {
+      this.reset();
+      const id = row.id || this.ids;
       getArticleById(id).then(res => {
-        this.form = res.data
-        this.open = true
-        this.title = '修改文章'
-      })
+        this.form = res.data;
+        this.open = true;
+        this.title = "修改文章";
+      });
     },
     /** 提交按钮 */
-    submitForm: function () {
+    submitForm: function() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          this.form.userId = this.$store.state.user.userInfo.user.id
+          this.form.userId = this.$store.state.user.userInfo.user.id;
           if (this.form.id !== undefined) {
             updateArticle(this.form).then(res => {
-              this.$httpResponse(res.message)
-              this.open = false
-              this.getList()
-            })
+              this.$httpResponse(res.message);
+              this.open = false;
+              this.getList();
+            });
           } else {
             addArticle(this.form).then(res => {
-              this.$httpResponse(res.message)
-              this.open = false
-              this.getList()
-            })
+              this.$httpResponse(res.message);
+              this.open = false;
+              this.getList();
+            });
           }
         }
-      })
+      });
     },
     /** 删除按钮操作 */
-    handleDelete (row) {
-      const ids = row.id || this.ids
-      this.$confirm('是否确认删除数据项?', '警告', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(function () {
-        return delArticle(ids)
-      }).then(() => {
-        this.getList()
-        this.$httpResponse('删除成功')
-      }).catch(function () {})
+    handleDelete(row) {
+      const ids = row.id || this.ids;
+      this.$confirm("是否确认删除数据项?", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(function() {
+          return delArticle(ids);
+        })
+        .then(() => {
+          this.getList();
+          this.$httpResponse("删除成功");
+        })
+        .catch(function() {});
     }
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
-  .drawerOps{
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
+.drawerOps {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 </style>
